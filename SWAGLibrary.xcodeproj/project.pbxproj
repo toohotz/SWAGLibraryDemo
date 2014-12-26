@@ -14,6 +14,11 @@
 		93070AA01A48508F00A7927B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93070A9F1A48508F00A7927B /* Images.xcassets */; };
 		93070AA31A48508F00A7927B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93070AA11A48508F00A7927B /* LaunchScreen.xib */; };
 		93070AAF1A48508F00A7927B /* SWAGLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93070AAE1A48508F00A7927B /* SWAGLibraryTests.swift */; };
+		931E2ED01A4BC966006B553B /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931E2ECF1A4BC966006B553B /* AddBookViewController.swift */; };
+		935149B51A4C951D00062997 /* SwiftHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 935149AE1A4C94EF00062997 /* SwiftHTTP.framework */; };
+		935149C51A4C97E000062997 /* JSONJoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 935149BE1A4C974200062997 /* JSONJoy.framework */; };
+		935149C71A4C9E6700062997 /* SWAGBookRetrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935149C61A4C9E6700062997 /* SWAGBookRetrieval.swift */; };
+		935149C91A4CA35B00062997 /* SWAGRawValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935149C81A4CA35B00062997 /* SWAGRawValues.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,6 +28,62 @@
 			proxyType = 1;
 			remoteGlobalIDString = 93070A901A48508E00A7927B;
 			remoteInfo = SWAGLibrary;
+		};
+		935149AD1A4C94EF00062997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 935149A61A4C94EF00062997 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6BFD901619C8D8B500DD99B6;
+			remoteInfo = SwiftHTTP;
+		};
+		935149AF1A4C94EF00062997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 935149A61A4C94EF00062997 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6BFD902119C8D8B500DD99B6;
+			remoteInfo = SwiftHTTPTests;
+		};
+		935149B11A4C94EF00062997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 935149A61A4C94EF00062997 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958025919E6EEEB003C8218;
+			remoteInfo = SwiftHTTPOSX;
+		};
+		935149B31A4C94EF00062997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 935149A61A4C94EF00062997 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958026319E6EEEB003C8218;
+			remoteInfo = SwiftHTTPOSXTests;
+		};
+		935149BD1A4C974200062997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 935149B61A4C974200062997 /* JSONJoy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6B3E79B719D355CF006071F7;
+			remoteInfo = JSONJoy;
+		};
+		935149BF1A4C974200062997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 935149B61A4C974200062997 /* JSONJoy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6B3E79C219D355CF006071F7;
+			remoteInfo = JSONJoyTests;
+		};
+		935149C11A4C974200062997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 935149B61A4C974200062997 /* JSONJoy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958022E19E6ED8E003C8218;
+			remoteInfo = JSONJoyOSX;
+		};
+		935149C31A4C974200062997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 935149B61A4C974200062997 /* JSONJoy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958023819E6ED8E003C8218;
+			remoteInfo = JSONJoyOSXTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -38,6 +99,11 @@
 		93070AA81A48508F00A7927B /* SWAGLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SWAGLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93070AAD1A48508F00A7927B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93070AAE1A48508F00A7927B /* SWAGLibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAGLibraryTests.swift; sourceTree = "<group>"; };
+		931E2ECF1A4BC966006B553B /* AddBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddBookViewController.swift; path = ../AddBookViewController.swift; sourceTree = "<group>"; };
+		935149A61A4C94EF00062997 /* SwiftHTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftHTTP.xcodeproj; path = "../../../../../../../Users/yose/Downloads/SwiftHTTP-master/SwiftHTTP.xcodeproj"; sourceTree = "<group>"; };
+		935149B61A4C974200062997 /* JSONJoy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JSONJoy.xcodeproj; path = "../../../../../../../Users/yose/Downloads/JSONJoy-Swift-master/JSONJoy.xcodeproj"; sourceTree = "<group>"; };
+		935149C61A4C9E6700062997 /* SWAGBookRetrieval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWAGBookRetrieval.swift; sourceTree = "<group>"; };
+		935149C81A4CA35B00062997 /* SWAGRawValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWAGRawValues.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +111,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				935149C51A4C97E000062997 /* JSONJoy.framework in Frameworks */,
+				935149B51A4C951D00062997 /* SwiftHTTP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +129,8 @@
 		93070A881A48508E00A7927B = {
 			isa = PBXGroup;
 			children = (
+				935149B61A4C974200062997 /* JSONJoy.xcodeproj */,
+				935149A61A4C94EF00062997 /* SwiftHTTP.xcodeproj */,
 				93070A931A48508E00A7927B /* SWAGLibrary */,
 				93070AAB1A48508F00A7927B /* SWAGLibraryTests */,
 				93070A921A48508E00A7927B /* Products */,
@@ -82,6 +152,9 @@
 				93070A961A48508E00A7927B /* AppDelegate.swift */,
 				93070A981A48508E00A7927B /* MasterViewController.swift */,
 				93070A9A1A48508E00A7927B /* DetailViewController.swift */,
+				931E2ECF1A4BC966006B553B /* AddBookViewController.swift */,
+				935149C81A4CA35B00062997 /* SWAGRawValues.swift */,
+				935149C61A4C9E6700062997 /* SWAGBookRetrieval.swift */,
 				93070A9C1A48508F00A7927B /* Main.storyboard */,
 				93070A9F1A48508F00A7927B /* Images.xcassets */,
 				93070AA11A48508F00A7927B /* LaunchScreen.xib */,
@@ -113,6 +186,28 @@
 				93070AAD1A48508F00A7927B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		935149A71A4C94EF00062997 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				935149AE1A4C94EF00062997 /* SwiftHTTP.framework */,
+				935149B01A4C94EF00062997 /* SwiftHTTPTests.xctest */,
+				935149B21A4C94EF00062997 /* SwiftHTTPOSX.framework */,
+				935149B41A4C94EF00062997 /* SwiftHTTPOSXTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		935149B71A4C974200062997 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				935149BE1A4C974200062997 /* JSONJoy.framework */,
+				935149C01A4C974200062997 /* JSONJoyTests.xctest */,
+				935149C21A4C974200062997 /* JSONJoyOSX.framework */,
+				935149C41A4C974200062997 /* JSONJoyOSXTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +277,16 @@
 			mainGroup = 93070A881A48508E00A7927B;
 			productRefGroup = 93070A921A48508E00A7927B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 935149B71A4C974200062997 /* Products */;
+					ProjectRef = 935149B61A4C974200062997 /* JSONJoy.xcodeproj */;
+				},
+				{
+					ProductGroup = 935149A71A4C94EF00062997 /* Products */;
+					ProjectRef = 935149A61A4C94EF00062997 /* SwiftHTTP.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				93070A901A48508E00A7927B /* SWAGLibrary */,
@@ -189,6 +294,65 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		935149AE1A4C94EF00062997 /* SwiftHTTP.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftHTTP.framework;
+			remoteRef = 935149AD1A4C94EF00062997 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		935149B01A4C94EF00062997 /* SwiftHTTPTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftHTTPTests.xctest;
+			remoteRef = 935149AF1A4C94EF00062997 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		935149B21A4C94EF00062997 /* SwiftHTTPOSX.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftHTTPOSX.framework;
+			remoteRef = 935149B11A4C94EF00062997 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		935149B41A4C94EF00062997 /* SwiftHTTPOSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftHTTPOSXTests.xctest;
+			remoteRef = 935149B31A4C94EF00062997 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		935149BE1A4C974200062997 /* JSONJoy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = JSONJoy.framework;
+			remoteRef = 935149BD1A4C974200062997 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		935149C01A4C974200062997 /* JSONJoyTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = JSONJoyTests.xctest;
+			remoteRef = 935149BF1A4C974200062997 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		935149C21A4C974200062997 /* JSONJoyOSX.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = JSONJoyOSX.framework;
+			remoteRef = 935149C11A4C974200062997 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		935149C41A4C974200062997 /* JSONJoyOSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = JSONJoyOSXTests.xctest;
+			remoteRef = 935149C31A4C974200062997 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		93070A8F1A48508E00A7927B /* Resources */ = {
@@ -215,9 +379,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				935149C91A4CA35B00062997 /* SWAGRawValues.swift in Sources */,
 				93070A9B1A48508E00A7927B /* DetailViewController.swift in Sources */,
+				931E2ED01A4BC966006B553B /* AddBookViewController.swift in Sources */,
 				93070A991A48508E00A7927B /* MasterViewController.swift in Sources */,
 				93070A971A48508E00A7927B /* AppDelegate.swift in Sources */,
+				935149C71A4C9E6700062997 /* SWAGBookRetrieval.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +466,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -335,6 +503,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Release;
 		};
@@ -342,10 +511,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Volumes/HyperX/User_created_Xcode_Frameworks,
+				);
 				INFOPLIST_FILE = SWAGLibrary/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -353,10 +528,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Volumes/HyperX/User_created_Xcode_Frameworks,
+				);
 				INFOPLIST_FILE = SWAGLibrary/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Release;
 		};
@@ -413,6 +594,7 @@
 				93070AB41A48508F00A7927B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93070AB51A48508F00A7927B /* Build configuration list for PBXNativeTarget "SWAGLibraryTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +603,7 @@
 				93070AB71A48508F00A7927B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

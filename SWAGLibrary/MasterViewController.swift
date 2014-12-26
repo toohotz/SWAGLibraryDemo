@@ -16,14 +16,25 @@ class MasterViewController: UITableViewController {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
             self.clearsSelectionOnViewWillAppear = false
             self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
         }
     }
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        SWAGBookRetrieval.authorForBooks()
+        
+        GCDDispatch.after(1.5, closure: { () -> () in
+        println("The book count is \(SWAGBookRetrieval.ArraysOf.authors.count)")
+        
+            self.tableView.reloadData()
+        })
+    
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
@@ -32,6 +43,8 @@ class MasterViewController: UITableViewController {
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
+            
+            
         }
     }
 
@@ -53,7 +66,6 @@ class MasterViewController: UITableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let object = objects[indexPath.row] as NSDate
                 let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
-                controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -63,18 +75,19 @@ class MasterViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return SWAGBookRetrieval.ArraysOf.authors.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 
-        let object = objects[indexPath.row] as NSDate
-        cell.textLabel!.text = object.description
+        cell.textLabel!.text = SWAGBookRetrieval.ArraysOf.title[indexPath.row]
+        cell.detailTextLabel!.text = SWAGBookRetrieval.ArraysOf.authors[indexPath.row]
         return cell
     }
 
@@ -94,4 +107,6 @@ class MasterViewController: UITableViewController {
 
 
 }
+
+
 
