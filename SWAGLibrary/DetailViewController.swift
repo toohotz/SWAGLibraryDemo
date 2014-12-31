@@ -12,6 +12,19 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
+//    View outlets
+    
+    @IBOutlet weak var bookTitle: UITextView!
+    
+    @IBOutlet weak var author: UILabel!
+    
+    @IBOutlet weak var publisher: UILabel!
+    
+    @IBOutlet weak var tags: UILabel!
+    
+    @IBOutlet weak var checkedOutTF: UITextView!
+    
+    
 
     var detailItem: AnyObject? {
         didSet {
@@ -20,19 +33,44 @@ class DetailViewController: UIViewController {
         }
     }
 
+//    delay animate the view due to having to retrieve values from server
+    
     func configureView() {
         // Update the user interface for the detail item.
         if let detail: AnyObject = self.detailItem {
             if let label = self.detailDescriptionLabel {
-                label.text = detail.description
+//                label.text = detail.description
+                
+//                Assign server values to respective textfields / labels
+//                println("The title is \(SWAGRawValues.ServerValues.bookCount)")
+                
+                
+               
+                
             }
         }
+        
+        GCDDispatch.after(1.5, closure: { () -> () in
+            self.author.text = SWAGRawValues.ServerValues.author
+            self.bookTitle.text = SWAGRawValues.ServerValues.title
+            self.tags.text = SWAGRawValues.ServerValues.tags
+            self.publisher.text = SWAGRawValues.ServerValues.publisher
+            self.checkedOutTF.text = "Last Checked Out: \(SWAGRawValues.ServerValues.lastCheckedOut!) @ June 3, 2014 1:46pm by \(SWAGRawValues.ServerValues.lastCheckedOutBy!) "
+        })
     }
 
+    
+    
+
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
+        
+      
     }
 
     override func didReceiveMemoryWarning() {

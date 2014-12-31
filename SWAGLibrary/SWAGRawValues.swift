@@ -22,21 +22,41 @@ class SWAGRawValues: NSObject {
         }
     }
     
+    
+
+    
     struct ServerValues {
 
         static var bookCount: Int = 0
         static var author: String = ""
-        static var lastCheckedOut: String = ""
-        static var lastCheckedOutBy: String = ""
+        static var lastCheckedOut: String? = ""
+        static var lastCheckedOutBy: String? = ""
         static var publisher: String = ""
         static var title: String = ""
+        static var tags: String = ""
         static var url: NSURL = NSURL()
+        static var error: String = ""
     }
     
-
+    struct BookValues {
+        static var bookCount: Int = Int()
+        static var author: String = ""
+        static var lastCheckedOut: String? = ""
+        static var lastCheckedOutBy: String? = ""
+        static var publisher: String = ""
+        static var title: String = ""
+        static var tags: String = ""
+    }
     
    
-    
+    enum Errors:String
+    {
+        case General = "An error has occurred"
+        case DeleteAllBooks = "An error occurred trying to delete all the books"
+        case DeletedBook = "An error occurred deleting this book"
+        case CheckingOutBook = "An error occurred checking out this book"
+        case CreatingBook = "An error occurred creating this book"
+    }
     
     
     

@@ -23,12 +23,14 @@ class MasterViewController: UITableViewController {
         }
     }
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        
         SWAGBookRetrieval.authorForBooks()
         
-        GCDDispatch.after(1.5, closure: { () -> () in
+        GCDDispatch.after(2.0, closure: { () -> () in
         println("The book count is \(SWAGBookRetrieval.ArraysOf.authors.count)")
         
             self.tableView.reloadData()
@@ -63,11 +65,16 @@ class MasterViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
+            
+
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let object = objects[indexPath.row] as NSDate
-                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                controller.navigationItem.leftItemsSupplementBackButton = true
+                println("The selected index row \(indexPath.row)")
+                SWAGBookRetrieval.retrieveASpecificBook(UInt(indexPath.row))
+                
+//                let object = objects[indexPath.row] as NSDate
+//                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
+//                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+//                controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
     }
@@ -98,6 +105,8 @@ class MasterViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
+
+//            instead of objects remove at index, remove index from array of books
             objects.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {

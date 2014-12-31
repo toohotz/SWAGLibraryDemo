@@ -32,6 +32,7 @@ class SWAGBookRetrieval: NSObject {
         static var title: [String] = []
         static var publisher: [String] = []
         static var lastCheckedOutBy: [String] = []
+        static var bookID: [UInt] = []
     }
     
     
@@ -112,26 +113,32 @@ class SWAGBookRetrieval: NSObject {
             if response.responseObject != nil
             {
                 let books = (response.responseObject as NSArray)
+                
+//                use a sort descriptor to sort by ascending ID number (for tableview purposes)
+                let idDescriptor = NSSortDescriptor(key: "id", ascending: true)
+                
+                let sortedBooks:NSArray = books.sortedArrayUsingDescriptors([idDescriptor])
+                println("The sorted books are \(sortedBooks)")
 
-                let book1: AnyObject = books.objectAtIndex(0)
-
+                let book1: AnyObject = sortedBooks.objectAtIndex(0)
+                println("The books are \(sortedBooks)")
                 let authorName1: String = ((book1 as NSDictionary).valueForKey("author") as String)
 
                 
-                let book2: AnyObject = books.objectAtIndex(1)
+                let book2: AnyObject = sortedBooks.objectAtIndex(1)
                  /*
                 fast enumerate through the books to grab the authors and put them
                 into the array that will propogate the datasource array of the tableview
 
                 */
-                for (var book: AnyObject) in books
+                for (var book: AnyObject) in sortedBooks
                 {
-                    var author: String = ((book as NSDictionary).valueForKey("author") as String)
+                    let author: String = ((book as NSDictionary).valueForKey("author") as String)
 //                    println("The current author is \(author)")
                     ArraysOf.authors.append(author)
-                    var title: String = ((book as NSDictionary).valueForKey("title") as String)
+                    let title: String = ((book as NSDictionary).valueForKey("title") as String)
                     ArraysOf.title.append(title)
-                    
+                  
                 }
                 
 //                println("The number of authors are \(ArraysOf.authors.count)")fd
@@ -147,6 +154,213 @@ class SWAGBookRetrieval: NSObject {
         }
         
         
+        
+    }
+    
+    class func retrieveASpecificBook(bookIndex: UInt)
+    {
+        
+//        find out correct book to search for
+        let bookNumber: UInt = bookIndex + 1
+        let bookCharacter = String(bookNumber)
+        
+        
+        let bookUrl: String = Server.URL.rawValue + bookCharacter
+        
+//        use newly constructed url to search for the given book
+        
+        var request = HTTPTask()
+        request.requestSerializer = HTTPRequestSerializer()
+        request.responseSerializer = JSONResponseSerializer()
+        request.GET(bookUrl, parameters: nil, success: { (response: HTTPResponse) -> Void in
+            
+//            Once we have a valid server response, we assign our server struct values to the 
+//            received book values
+            if response.responseObject != nil
+            {
+                println("The server returned \(response.responseObject)")
+                
+                let author = ((response.responseObject as NSDictionary).valueForKey("author") as String)
+                let title = ((response.responseObject as NSDictionary).valueForKey("title") as String)
+                let tags = ((response.responseObject as NSDictionary).valueForKey("categories") as String)
+                let publisher = ((response.responseObject as NSDictionary).valueForKey("publisher") as? String)
+                let lastCheckedOut = ((response.responseObject as NSDictionary).valueForKey("lastCheckedOut") as? String)
+                let lastCheckedOutBy = ((response.responseObject as NSDictionary).valueForKey("lastCheckedOutBy") as? String)
+               
+//                check if book has been checked out before
+                
+                if lastCheckedOut == nil
+                {
+                    SWAGRawValues.ServerValues.lastCheckedOut! = "Book has not been checked out yet"
+                }
+                
+                if lastCheckedOutBy == nil
+                {
+                    SWAGRawValues.ServerValues.lastCheckedOutBy! = ""
+                }
+
+                
+                
+                
+//                Assign server values for detail view
+                
+                SWAGRawValues.ServerValues.author = author
+                SWAGRawValues.ServerValues.title = title
+
+                if publisher != nil
+                {
+                SWAGRawValues.ServerValues.publisher = publisher!
+                }
+                SWAGRawValues.ServerValues.tags = tags
+
+//                SWAGRawValues.ServerValues.author = ((response.responseObject as NSDictionary).valueForKey("author") as String)
+//                SWAGRawValues.ServerValues.title = ((response.responseObject as NSDictionary).valueForKey("title") as String)
+//                SWAGRawValues.ServerValues.lastCheckedOut = ((response.responseObject as NSDictionary).valueForKey("lastCheckedOut") as String)
+//                SWAGRawValues.ServerValues.lastCheckedOutBy = ((response.responseObject as NSDictionary).valueForKey("lastCheckedOutBy") as String)
+//                SWAGRawValues.ServerValues.bookCount = ((response.responseObject as NSDictionary).valueForKey("id") as String).toInt()!
+                
+//                checks for if book hasn't been checked out as of yet
+                
+                if SWAGRawValues.ServerValues.lastCheckedOut == nil
+                {
+                    SWAGRawValues.ServerValues.lastCheckedOut! = "This book has not been checked out as of yet."
+                }
+                
+                if SWAGRawValues.ServerValues.lastCheckedOutBy == nil
+                {
+                    SWAGRawValues.ServerValues.lastCheckedOutBy = ""
+                }
+                
+            }
+            
+            
+            }) { (error: NSError, response: HTTPResponse?) -> Void in
+            
+                if error == true
+                {
+                    println("Oops, an error occurred \(error.localizedDescription)")
+                }
+                
+        }
+    }
+    
+    class func createNewBook() -> Bool
+    {
+        var isCreated = Bool()
+        
+        var bookValues: [String: String] = Dictionary()
+        
+        bookValues["author"] = SWAGRawValues.BookValues.author
+        bookValues["title"] = SWAGRawValues.BookValues.title
+        bookValues["publisher"] = SWAGRawValues.BookValues.publisher
+        bookValues["tags"] = SWAGRawValues.BookValues.tags
+        bookValues["lastCheckedOutBy"] = SWAGRawValues.BookValues.lastCheckedOutBy!
+        
+        var request = HTTPTask()
+        request.requestSerializer = HTTPRequestSerializer()
+        request.responseSerializer = JSONResponseSerializer()
+        
+        request.POST(Server.URL.rawValue, parameters: bookValues, success: { (response: HTTPResponse) -> Void in
+            
+         if response.responseObject != nil
+         {
+            isCreated = true
+            }
+            
+            
+            
+            }) { (error: NSError, response: HTTPResponse?) -> Void in
+                
+                isCreated = false
+            
+        }
+        
+        
+        
+        return isCreated
+    }
+    
+    class func editABook(bokIndex: UInt)
+    {
+//       first retrieve the specific book that you are looking for
+    }
+    
+    class func deleteABook(bookIndex: UInt) -> Bool
+    {
+        var isDeleted = Bool()
+        
+//        find out correct book to search for
+        let bookNumber: UInt = bookIndex + 1
+        let bookCharacter = String(bookNumber)
+        
+        
+        let bookUrl: String = Server.URL.rawValue + bookCharacter
+        
+        
+//     delete book that was selected
+        
+        var request = HTTPTask()
+        request.requestSerializer = HTTPRequestSerializer()
+        request.responseSerializer = JSONResponseSerializer()
+        
+        request.DELETE(bookUrl, parameters: nil, success: { (response: HTTPResponse) -> Void in
+    //            let user know book has been deleted
+            if response.responseObject != nil
+            {
+                
+                
+                isDeleted = true
+            }
+            
+            
+            }) { (error: NSError, response: HTTPResponse?) -> Void in
+                
+                SWAGRawValues.ServerValues.error = SWAGRawValues.Errors.DeletedBook.rawValue
+                isDeleted = false
+                
+        }
+        
+        return isDeleted
+        
+    }
+    
+    class func deleteAllBooks() -> Bool
+    {
+        var isDeleted = Bool()
+        
+
+//        delete all books
+//        if return value is true, then tell user that all books are deleted
+        
+        var request = HTTPTask()
+        request.requestSerializer = HTTPRequestSerializer()
+        request.responseSerializer = JSONResponseSerializer()
+        
+        request.DELETE(Server.URL.rawValue, parameters: nil, success: { (response: HTTPResponse) -> Void in
+            
+            if response.responseObject != nil
+            {
+//              let user know all books has been deleted
+                isDeleted = true
+                
+                
+                
+                
+            }
+            
+            }) { (error: NSError, response: HTTPResponse?) -> Void in
+            
+                if error == true
+                {
+//                    let user know of error deleting all books
+                    SWAGRawValues.ServerValues.error = SWAGRawValues.Errors.DeleteAllBooks.rawValue
+                    isDeleted = false
+                    
+                }
+        }
+        
+        
+        return isDeleted
         
     }
     
