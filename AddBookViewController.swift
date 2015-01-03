@@ -67,16 +67,102 @@ class AddBookViewController: UIViewController {
 //        checks first to see if any text fields have text within them before
 //        leaving screen
         
+
+        func checkIfFieldsAreLeftEmpty() -> Bool
+        {
+            var isOkay = true
+            
+            let bookLength = countElements(bookTitleTF!.text)
+            let authorLength = countElements(authorTF!.text)
+            let publisherLength = countElements(publisherTF.text)
+            let tagsLength = countElements(categoriesTF.text)
+            
+             if bookLength <= 2 || authorLength <= 2 || publisherLength <= 2 || tagsLength <= 2
+             {
+                isOkay = false
+                
+            }
+            
+           
+            
+            return isOkay
+        }
+        
         
 //        Assign values book values to be sent off to server
         
-        SWAGRawValues.BookValues.title = bookTitleTF.text
-        SWAGRawValues.BookValues.author = authorTF.text
-        SWAGRawValues.BookValues.publisher = publisherTF.text
-        SWAGRawValues.BookValues.tags = categoriesTF.text
+        func assignServerValues()
+        {
+            SWAGRawValues.BookValues.title = bookTitleTF.text
+            SWAGRawValues.BookValues.author = authorTF.text
+            SWAGRawValues.BookValues.publisher = publisherTF.text
+            SWAGRawValues.BookValues.tags = categoriesTF.text
+            SWAGRawValues.BookValues.lastCheckedOut! = currentTimeServerFormatting()
+            SWAGRawValues.BookValues.lastCheckedOutBy! = "Not checked out yet"
+        }
         
+        if checkIfFieldsAreLeftEmpty() == false
+        {
+            let alert = UIAlertController(title: "Oops!", message: "It appears that you have left a field blank when trying to make a new book. Are you sure you would like to close this screen?", preferredStyle: UIAlertControllerStyle.Alert)
+
+            alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: {action in
+                
+             switch action.style
+             {
+             case .Default:
+                println("User said to leave ")
+                self.navigationController?.popViewControllerAnimated(true)
+                
+             default:
+                println("")
+                
+                
+                }
+                
+                
+                
+            }))
+            
+            alert.addAction(UIAlertAction(title: "I'll Stay", style: .Default, handler: { (action: UIAlertAction!) -> Void in
+                
+                switch action.style
+                {
+                case .Default:
+                println("User said to stay")
+                
+                case .Cancel:
+                println("Do nothing user wants to stay on screen")
+                
+                case .Destructive:
+                println("User confirmed wanted to leave")
+            }
+                
+                
+            }))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
         
-        self.navigationController?.popViewControllerAnimated(true)
+//        if no fields are left empty then just dismiss view
+        
+        if checkIfFieldsAreLeftEmpty() == true
+        {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+
+//        take values and send off to server to create a new book
+        assignServerValues()
+        
+        if SWAGBookRetrieval.createNewBook() == true
+        {
+            println("The function returned to be true")
+        }
+        
+        if SWAGBookRetrieval.createNewBook() == false
+        {
+            println("The function returned to be false")
+        }
+        
     }
     
 //    Our object that will be in place of thee response received

@@ -36,6 +36,7 @@ class SWAGRawValues: NSObject {
         static var tags: String = ""
         static var url: NSURL = NSURL()
         static var error: String = ""
+        static var id: Int = Int()
     }
     
     struct BookValues {
@@ -46,6 +47,7 @@ class SWAGRawValues: NSObject {
         static var publisher: String = ""
         static var title: String = ""
         static var tags: String = ""
+        static var id: Int = Int()
     }
     
    

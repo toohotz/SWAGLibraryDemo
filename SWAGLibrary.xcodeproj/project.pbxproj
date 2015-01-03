@@ -19,6 +19,7 @@
 		935149C51A4C97E000062997 /* JSONJoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 935149BE1A4C974200062997 /* JSONJoy.framework */; };
 		935149C71A4C9E6700062997 /* SWAGBookRetrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935149C61A4C9E6700062997 /* SWAGBookRetrieval.swift */; };
 		935149C91A4CA35B00062997 /* SWAGRawValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935149C81A4CA35B00062997 /* SWAGRawValues.swift */; };
+		93B17A1F1A561F720092AE0B /* bookCheckOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B17A1E1A561F720092AE0B /* bookCheckOutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		935149B61A4C974200062997 /* JSONJoy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JSONJoy.xcodeproj; path = "../../../../../../../Users/yose/Downloads/JSONJoy-Swift-master/JSONJoy.xcodeproj"; sourceTree = "<group>"; };
 		935149C61A4C9E6700062997 /* SWAGBookRetrieval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWAGBookRetrieval.swift; sourceTree = "<group>"; };
 		935149C81A4CA35B00062997 /* SWAGRawValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWAGRawValues.swift; sourceTree = "<group>"; };
+		93B17A1E1A561F720092AE0B /* bookCheckOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bookCheckOutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				935149C81A4CA35B00062997 /* SWAGRawValues.swift */,
 				935149C61A4C9E6700062997 /* SWAGBookRetrieval.swift */,
 				93070A9C1A48508F00A7927B /* Main.storyboard */,
+				93B17A1E1A561F720092AE0B /* bookCheckOutViewController.swift */,
 				93070A9F1A48508F00A7927B /* Images.xcassets */,
 				93070AA11A48508F00A7927B /* LaunchScreen.xib */,
 				93070A941A48508E00A7927B /* Supporting Files */,
@@ -384,6 +387,7 @@
 				931E2ED01A4BC966006B553B /* AddBookViewController.swift in Sources */,
 				93070A991A48508E00A7927B /* MasterViewController.swift in Sources */,
 				93070A971A48508E00A7927B /* AppDelegate.swift in Sources */,
+				93B17A1F1A561F720092AE0B /* bookCheckOutViewController.swift in Sources */,
 				935149C71A4C9E6700062997 /* SWAGBookRetrieval.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

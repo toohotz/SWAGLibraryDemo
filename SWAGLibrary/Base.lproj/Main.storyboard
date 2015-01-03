@@ -243,7 +243,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="RaP-rd-0kA" kind="presentation" id="hH2-9K-EVs"/>
+                                    <segue destination="RaP-rd-0kA" kind="presentation" id="Z8f-w6-kzZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -396,17 +396,16 @@
                         <outlet property="checkedOutTF" destination="g6P-vu-q9p" id="b6N-Xw-u5L"/>
                         <outlet property="publisher" destination="xfB-vN-AjI" id="3cv-3b-weM"/>
                         <outlet property="tags" destination="787-25-dhK" id="kqw-Mn-wF5"/>
-                        <segue destination="JEX-9P-axG" kind="show" id="bhx-pA-hP3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y0q-8u-bPy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="816" y="129"/>
         </scene>
-        <!--View Controller-->
+        <!--Book Check Out View Controller-->
         <scene sceneID="8AY-hW-iqK">
             <objects>
-                <viewController id="RaP-rd-0kA" sceneMemberID="viewController">
+                <viewController id="RaP-rd-0kA" customClass="bookCheckOutViewController" customModule="SWAGLibrary" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Aa-XJ-IBu"/>
                         <viewControllerLayoutGuide type="bottom" id="mQl-eO-576"/>
@@ -436,6 +435,9 @@
                             <constraint firstAttribute="centerX" secondItem="fva-jv-h3Z" secondAttribute="centerX" id="qDq-kd-R2W"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="nameTF" destination="RDM-3C-bM8" id="aji-ct-ktO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qhg-u4-cJS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -499,6 +501,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Books" id="Zdf-7t-Un8"/>
+                    <connections>
+                        <segue destination="JEX-9P-axG" kind="show" identifier="addBook" id="n8a-fB-7KQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>

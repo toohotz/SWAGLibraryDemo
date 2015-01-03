@@ -138,6 +138,8 @@ class SWAGBookRetrieval: NSObject {
                     ArraysOf.authors.append(author)
                     let title: String = ((book as NSDictionary).valueForKey("title") as String)
                     ArraysOf.title.append(title)
+                    let ids: UInt = UInt(((book as NSDictionary).valueForKey("id") as Int))
+                    ArraysOf.bookID.append(ids)
                   
                 }
                 
@@ -178,7 +180,7 @@ class SWAGBookRetrieval: NSObject {
 //            received book values
             if response.responseObject != nil
             {
-                println("The server returned \(response.responseObject)")
+                println("The server returned \(response.responseObject!)")
                 
                 let author = ((response.responseObject as NSDictionary).valueForKey("author") as String)
                 let title = ((response.responseObject as NSDictionary).valueForKey("title") as String)
@@ -186,21 +188,38 @@ class SWAGBookRetrieval: NSObject {
                 let publisher = ((response.responseObject as NSDictionary).valueForKey("publisher") as? String)
                 let lastCheckedOut = ((response.responseObject as NSDictionary).valueForKey("lastCheckedOut") as? String)
                 let lastCheckedOutBy = ((response.responseObject as NSDictionary).valueForKey("lastCheckedOutBy") as? String)
-               
+                let id = ((response.responseObject as NSDictionary).valueForKey("id") as Int)
 //                check if book has been checked out before
                 
-                if lastCheckedOut == nil
+                
+      
+                
+                switch lastCheckedOutBy
                 {
-                    SWAGRawValues.ServerValues.lastCheckedOut! = "Book has not been checked out yet"
+                case nil:
+                    println("Hasn't been checked out by anyone as of yet")
+                    SWAGRawValues.ServerValues.lastCheckedOutBy = "Not yet checked out"
+                    
+                default:
+
+                    SWAGRawValues.ServerValues.lastCheckedOutBy = lastCheckedOutBy!
+                    println("Checked out by \(SWAGRawValues.ServerValues.lastCheckedOutBy)")
                 }
                 
-                if lastCheckedOutBy == nil
+                
+                switch lastCheckedOut
                 {
-                    SWAGRawValues.ServerValues.lastCheckedOutBy! = ""
+                case nil:
+                    println("Book has never been checked out")
+                    SWAGRawValues.ServerValues.lastCheckedOut = ""
+                    
+                default:
+
+                    SWAGRawValues.ServerValues.lastCheckedOut = lastCheckedOut!
+                    
                 }
 
-                
-                
+
                 
 //                Assign server values for detail view
                 
@@ -212,6 +231,7 @@ class SWAGBookRetrieval: NSObject {
                 SWAGRawValues.ServerValues.publisher = publisher!
                 }
                 SWAGRawValues.ServerValues.tags = tags
+                SWAGRawValues.ServerValues.id = id
 
 //                SWAGRawValues.ServerValues.author = ((response.responseObject as NSDictionary).valueForKey("author") as String)
 //                SWAGRawValues.ServerValues.title = ((response.responseObject as NSDictionary).valueForKey("title") as String)
@@ -221,6 +241,8 @@ class SWAGBookRetrieval: NSObject {
                 
 //                checks for if book hasn't been checked out as of yet
                 
+                
+                /*
                 if SWAGRawValues.ServerValues.lastCheckedOut == nil
                 {
                     SWAGRawValues.ServerValues.lastCheckedOut! = "This book has not been checked out as of yet."
@@ -230,6 +252,19 @@ class SWAGBookRetrieval: NSObject {
                 {
                     SWAGRawValues.ServerValues.lastCheckedOutBy = ""
                 }
+                
+//                if book was checked out
+                
+                if SWAGRawValues.ServerValues.lastCheckedOut != nil
+                {
+                    SWAGRawValues.ServerValues.lastCheckedOut = lastCheckedOut
+                }
+                
+                if SWAGRawValues.ServerValues.lastCheckedOutBy != nil
+                {
+                    SWAGRawValues.ServerValues.lastCheckedOutBy = lastCheckedOutBy
+                }
+                */
                 
             }
             
@@ -242,6 +277,8 @@ class SWAGBookRetrieval: NSObject {
                 }
                 
         }
+        
+        
     }
     
     class func createNewBook() -> Bool
@@ -253,7 +290,7 @@ class SWAGBookRetrieval: NSObject {
         bookValues["author"] = SWAGRawValues.BookValues.author
         bookValues["title"] = SWAGRawValues.BookValues.title
         bookValues["publisher"] = SWAGRawValues.BookValues.publisher
-        bookValues["tags"] = SWAGRawValues.BookValues.tags
+        bookValues["categories"] = SWAGRawValues.BookValues.tags
         bookValues["lastCheckedOutBy"] = SWAGRawValues.BookValues.lastCheckedOutBy!
         
         var request = HTTPTask()
@@ -265,6 +302,7 @@ class SWAGBookRetrieval: NSObject {
          if response.responseObject != nil
          {
             isCreated = true
+            println("Book succesfully created.")
             }
             
             
@@ -272,6 +310,7 @@ class SWAGBookRetrieval: NSObject {
             }) { (error: NSError, response: HTTPResponse?) -> Void in
                 
                 isCreated = false
+                println("An error occurred, the book could not be created. - \(error.localizedDescription)")
             
         }
         
@@ -280,9 +319,46 @@ class SWAGBookRetrieval: NSObject {
         return isCreated
     }
     
-    class func editABook(bokIndex: UInt)
+    class func editABook(bookIndex: UInt) -> Bool
     {
+        
+        
+        var hasBeenEdited = Bool()
+        
 //       first retrieve the specific book that you are looking for
+
+        
+        let bookNumber: UInt = bookIndex + 1
+        let bookCharacter = String(bookNumber)
+        
+        
+        let bookUrl: String = Server.URL.rawValue + bookCharacter
+        
+        //        use newly constructed url to search for the given book
+        
+        var bookValues: [String:String] = Dictionary()
+        bookValues["lastCheckedOutBy"] = SWAGRawValues.BookValues.lastCheckedOutBy!
+        
+        var request = HTTPTask()
+        request.requestSerializer = HTTPRequestSerializer()
+        request.responseSerializer = JSONResponseSerializer()
+        
+        request.PUT(bookUrl, parameters: bookValues, success: { (response: HTTPResponse) -> Void in
+            if response.responseObject != nil
+            {
+               println("The update was successful")
+               hasBeenEdited = true
+                
+            }
+            }) { (error: NSError, response: HTTPResponse?) -> Void in
+            
+               println("An error occurred updating the book - \(error.localizedDescription)")
+                
+                hasBeenEdited = false
+        }
+        
+        return hasBeenEdited
+        
     }
     
     class func deleteABook(bookIndex: UInt) -> Bool
@@ -290,11 +366,9 @@ class SWAGBookRetrieval: NSObject {
         var isDeleted = Bool()
         
 //        find out correct book to search for
-        let bookNumber: UInt = bookIndex + 1
-        let bookCharacter = String(bookNumber)
-        
-        
-        let bookUrl: String = Server.URL.rawValue + bookCharacter
+        let newIndex: UInt = ((SWAGBookRetrieval.ArraysOf.bookID as NSArray).objectAtIndex(Int(bookIndex)) as UInt)
+
+        let bookUrl: String = Server.URL.rawValue + String(newIndex)
         
         
 //     delete book that was selected
@@ -307,7 +381,7 @@ class SWAGBookRetrieval: NSObject {
     //            let user know book has been deleted
             if response.responseObject != nil
             {
-                
+                println("Book has been deleted")
                 
                 isDeleted = true
             }
@@ -316,6 +390,13 @@ class SWAGBookRetrieval: NSObject {
             }) { (error: NSError, response: HTTPResponse?) -> Void in
                 
                 SWAGRawValues.ServerValues.error = SWAGRawValues.Errors.DeletedBook.rawValue
+               
+                if error == true
+                {
+                     println("An error ocurred trying to delete the book - \(error.localizedDescription)")
+                }
+                
+                
                 isDeleted = false
                 
         }
