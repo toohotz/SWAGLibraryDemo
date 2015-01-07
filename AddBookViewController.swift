@@ -153,19 +153,83 @@ class AddBookViewController: UIViewController {
 //        take values and send off to server to create a new book
         assignServerValues()
         
-        if SWAGBookRetrieval.createNewBook() == true
+//        Do post request for book with given values
+        
+        let bookValues: [String: String] =
+        ["author": authorTF.text,
+        "title": bookTitleTF.text,
+        "publisher": publisherTF.text,
+        "categories": categoriesTF.text,
+        "lastCheckedOut": currentTimeServerFormatting(),
+        "lastCheckedOutBy": "Not checked out yet"]
+        
+//        Objective-C book creation
+        
+        func createBookOBjectiveCStyle()
         {
-            println("The function returned to be true")
+            if (HTTPPost.createNewBook(SWAGBookRetrieval.Server.URL.rawValue, bookValues) == true)
+            {
+                //            function returned true so that book was succesfully created
+                println("The book was succesfully created")
+                
+            }
+            
+            if (HTTPPost.createNewBook(SWAGBookRetrieval.Server.URL.rawValue, bookValues) == false)
+            {
+                //            function returned false if book was not created created
+                println("The book was not successfully created")
+                
+            }
+            
         }
         
-        if SWAGBookRetrieval.createNewBook() == false
+ 
+
+//        Swift book creation
+        
+        func createBookSwiftStyle()
         {
-            println("The function returned to be false")
+            if SWAGBookRetrieval.createNewBook() == true
+            {
+                println("The function returned to be true")
+            }
+            
+            if SWAGBookRetrieval.createNewBook() == false
+            {
+                println("The function returned to be false")
+            }
         }
+        
+       createBookOBjectiveCStyle()
         
     }
     
-//    Our object that will be in place of thee response received
+    @IBAction func submit(sender: AnyObject) {
+        
+        let bookValues: [String: String] =
+        ["author": authorTF.text,
+            "title": bookTitleTF.text,
+            "publisher": publisherTF.text,
+            "categories": categoriesTF.text,
+            "lastCheckedOut": currentTimeServerFormatting(),
+            "lastCheckedOutBy": "Not checked out yet"]
+        
+        //        Objective-C book creation
+        
+        func createBookOBjectiveCStyle()
+        {
+            HTTPPost.createNewBook(SWAGBookRetrieval.Server.URL.rawValue, bookValues)
+            self.navigationController?.popViewControllerAnimated(true)
+            
+        }
+        
+        createBookOBjectiveCStyle()
+    }
+    
+    
+    
+    
+
   
 
     

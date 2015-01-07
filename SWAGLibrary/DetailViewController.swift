@@ -34,6 +34,12 @@ class DetailViewController: UIViewController {
 
 //    delay animate the view due to having to retrieve values from server
     
+    func listValues()
+    {
+        println("The author is \(SWAGRawValues.ServerValues.author) and the book title is \(SWAGRawValues.ServerValues.title) with publisher \(SWAGRawValues.ServerValues.publisher)")
+    }
+    
+    
     func configureView() {
         // Update the user interface for the detail item.
         if let detail: AnyObject = self.detailItem {
@@ -75,6 +81,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
+        self.listValues()
 
 
     }
