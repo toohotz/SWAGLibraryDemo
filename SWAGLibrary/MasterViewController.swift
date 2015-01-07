@@ -23,18 +23,27 @@ class MasterViewController: UITableViewController {
         }
     }
 
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+//        println("The view has appeared")
+//        println("The book count is \(SWAGBookRetrieval.ArraysOf.authors.count)")
+        SWAGBookRetrieval.authorForBooks()
+//
+        GCDDispatch.after(1.5, closure: { () -> () in
+            self.tableView.reloadData()
+        })
+        self.refreshControl?.endRefreshing()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        
-        SWAGBookRetrieval.authorForBooks()
-        
-        GCDDispatch.after(2.0, closure: { () -> () in
-        println("The book count is \(SWAGBookRetrieval.ArraysOf.authors.count)")
-        
-            self.tableView.reloadData()
-        })
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.backgroundColor = UIColor.blueColor()
+        self.refreshControl?.tintColor = UIColor.whiteColor()
+        self.refreshControl?.addTarget(self, action: "reloadData", forControlEvents: UIControlEvents.ValueChanged)
     
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -89,6 +98,23 @@ class MasterViewController: UITableViewController {
         
     }
     
+    func reloadData()
+    {
+        
+      SWAGBookRetrieval.authorForBooks()
+        
+        GCDDispatch.after(1.5, closure: { () -> () in
+            self.tableView.reloadData()
+  
+                self.refreshControl?.endRefreshing()
+
+            
+        })
+    }
+    
+    
+    
+    
     
     // MARK: - Table View
 
@@ -125,6 +151,7 @@ class MasterViewController: UITableViewController {
             SWAGBookRetrieval.ArraysOf.authors.removeAtIndex(indexPath.row)
 //            objects.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                    println("The book count is \(SWAGBookRetrieval.ArraysOf.authors.count)")
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
