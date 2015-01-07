@@ -105,10 +105,28 @@ class SWAGBookRetrieval: NSObject {
     
     class func authorForBooks()
     {
+        
+//        ArraysOf.authors = [String]()
+//        ArraysOf.bookID = [UInt]()
+//        ArraysOf.lastCheckedOutBy = [String]()
+//        ArraysOf.publisher = [String]()
+//        ArraysOf.title = [String]()
+        
+//        empty sets of arrays that will hold the server values received
+        
+        var authors:[String] = [String]()
+        var booktitles: [String] = [String]()
+        var bookNumbers: [UInt] = [UInt]()
+        
+
+        
         var request = HTTPTask()
         request.requestSerializer = HTTPRequestSerializer()
         request.responseSerializer = JSONResponseSerializer()
         request.GET(Server.URL.rawValue, parameters: nil, success: { (response: HTTPResponse) -> Void in
+            
+            
+            
             
             if response.responseObject != nil
             {
@@ -135,16 +153,32 @@ class SWAGBookRetrieval: NSObject {
                 {
                     let author: String = ((book as NSDictionary).valueForKey("author") as String)
 //                    println("The current author is \(author)")
-                    ArraysOf.authors.append(author)
+                    authors.append(author)
                     let title: String = ((book as NSDictionary).valueForKey("title") as String)
-                    ArraysOf.title.append(title)
+                    booktitles.append(title)
                     let ids: UInt = UInt(((book as NSDictionary).valueForKey("id") as Int))
-                    ArraysOf.bookID.append(ids)
+                    bookNumbers.append(ids)
                   
                 }
                 
-//                println("The number of authors are \(ArraysOf.authors.count)")fd
+//               if books are already loaded into tableview, compare them
+//                to new books if a refresh is called
+//                if they aren't the same, replace old books with updated ones from server
                 
+                if (ArraysOf.title.count != booktitles.count)
+                {
+                    ArraysOf.title = booktitles
+                    ArraysOf.authors = authors
+                    ArraysOf.bookID = bookNumbers
+                    
+                }
+                
+                else if (ArraysOf.title.count == booktitles.count)
+                {
+                    println("No new books have been added or deleted")
+                }
+                
+                println("The number of books are \(ArraysOf.title.count)")
             }
             
             }) { (error: NSError, response: HTTPResponse?) -> Void in
@@ -292,6 +326,7 @@ class SWAGBookRetrieval: NSObject {
         bookValues["publisher"] = SWAGRawValues.BookValues.publisher
         bookValues["categories"] = SWAGRawValues.BookValues.tags
         bookValues["lastCheckedOutBy"] = SWAGRawValues.BookValues.lastCheckedOutBy!
+        bookValues["id"] = String(SWAGBookRetrieval.ArraysOf.bookID.last! + 1)
         
         var request = HTTPTask()
         request.requestSerializer = HTTPRequestSerializer()
