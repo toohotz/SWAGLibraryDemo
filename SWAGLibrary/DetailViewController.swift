@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UIActionSheetDelegate {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
@@ -24,6 +24,11 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var checkedOutTF: UITextView!
 
+    @IBOutlet weak var staticPublisher: UILabel!
+    
+    @IBOutlet weak var staticTags: UILabel!
+    
+    
 
     var detailItem: AnyObject? {
         didSet {
@@ -32,6 +37,55 @@ class DetailViewController: UIViewController {
         }
     }
 
+  
+    
+    func fadeIn()
+    {
+     
+        func zeroAlpha()
+        {
+            bookTitle.alpha = 0
+            author.alpha = 0
+            publisher.alpha = 0
+            tags.alpha = 0
+            checkedOutTF.alpha = 0
+            staticPublisher.alpha = 0
+            staticTags.alpha = 0
+        }
+        
+        zeroAlpha()
+        
+        UIView.animateWithDuration(2.5, animations: { () -> Void in
+            self.bookTitle.alpha = 1
+            self.author.alpha = 1
+            self.publisher.alpha = 1
+            self.tags.alpha = 1
+            self.checkedOutTF.alpha = 1
+            self.staticPublisher.alpha = 1
+            self.staticTags.alpha = 1
+        })
+   
+     
+    }
+    
+    
+    @IBAction func shareTo(sender: UIBarButtonItem) {
+        
+//        bring up a form sheet to allow user to select 
+//        either Twitter or Facebook to share to
+        
+        let actionSheet = UIActionSheet(title: "Where would you like to share this book information to?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle:nil, otherButtonTitles: "Facebook", "Twitter")
+        actionSheet.actionSheetStyle = .Default
+        actionSheet.showInView(self.view)
+        
+        // MARK: UIActionSheetDelegate
+      
+        
+        
+    }
+    
+    
+    
 //    delay animate the view due to having to retrieve values from server
     
     func listValues()
@@ -55,7 +109,7 @@ class DetailViewController: UIViewController {
             }
         }
         
-        GCDDispatch.after(1.5, closure: { () -> () in
+        GCDDispatch.after(0.15, closure: { () -> () in
             self.author.text = SWAGRawValues.ServerValues.author
             self.bookTitle.text = SWAGRawValues.ServerValues.title
             self.tags.text = SWAGRawValues.ServerValues.tags
@@ -73,12 +127,19 @@ class DetailViewController: UIViewController {
 
     
     
-
+    override func viewWillAppear(animated: Bool) {
+        fadeIn()
+        
+    }
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
         self.listValues()

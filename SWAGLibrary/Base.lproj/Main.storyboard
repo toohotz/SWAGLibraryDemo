@@ -391,13 +391,19 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="nDu-8P-EZh">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Pnh-jR-QAJ"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Pnh-jR-QAJ">
+                            <connections>
+                                <action selector="shareTo:" destination="aGi-rV-o5S" id="Hw2-ch-TkK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="author" destination="GFf-xO-plI" id="cJ4-QS-deS"/>
                         <outlet property="bookTitle" destination="RqN-wN-9Ko" id="guU-w5-qpM"/>
                         <outlet property="checkedOutTF" destination="g6P-vu-q9p" id="b6N-Xw-u5L"/>
                         <outlet property="publisher" destination="xfB-vN-AjI" id="3cv-3b-weM"/>
+                        <outlet property="staticPublisher" destination="nA4-Cd-gNG" id="92Z-Pq-iBV"/>
+                        <outlet property="staticTags" destination="UhZ-MC-VP0" id="q14-9d-Ay2"/>
                         <outlet property="tags" destination="787-25-dhK" id="kqw-Mn-wF5"/>
                     </connections>
                 </viewController>
