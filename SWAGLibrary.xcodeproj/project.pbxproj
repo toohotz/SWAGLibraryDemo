@@ -42,6 +42,62 @@
 			remoteGlobalIDString = 93070A901A48508E00A7927B;
 			remoteInfo = SWAGLibrary;
 		};
+		93AA08EE1A6459230041FCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93AA08E71A6459230041FCC2 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6BFD901619C8D8B500DD99B6;
+			remoteInfo = SwiftHTTP;
+		};
+		93AA08F01A6459230041FCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93AA08E71A6459230041FCC2 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6BFD902119C8D8B500DD99B6;
+			remoteInfo = SwiftHTTPTests;
+		};
+		93AA08F21A6459230041FCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93AA08E71A6459230041FCC2 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958025919E6EEEB003C8218;
+			remoteInfo = SwiftHTTPOSX;
+		};
+		93AA08F41A6459230041FCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93AA08E71A6459230041FCC2 /* SwiftHTTP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958026319E6EEEB003C8218;
+			remoteInfo = SwiftHTTPOSXTests;
+		};
+		93AA08FD1A64592A0041FCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93AA08F61A64592A0041FCC2 /* JSONJoy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6B3E79B719D355CF006071F7;
+			remoteInfo = JSONJoy;
+		};
+		93AA08FF1A64592A0041FCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93AA08F61A64592A0041FCC2 /* JSONJoy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6B3E79C219D355CF006071F7;
+			remoteInfo = JSONJoyTests;
+		};
+		93AA09011A64592A0041FCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93AA08F61A64592A0041FCC2 /* JSONJoy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958022E19E6ED8E003C8218;
+			remoteInfo = JSONJoyOSX;
+		};
+		93AA09031A64592A0041FCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93AA08F61A64592A0041FCC2 /* JSONJoy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D958023819E6ED8E003C8218;
+			remoteInfo = JSONJoyOSXTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +141,8 @@
 		93AA084A1A5CBE290041FCC2 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		93AA084B1A5CBE290041FCC2 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		93AA084C1A5CBE290041FCC2 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		93AA08E71A6459230041FCC2 /* SwiftHTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftHTTP.xcodeproj; path = "SwiftHTTP-master/SwiftHTTP.xcodeproj"; sourceTree = "<group>"; };
+		93AA08F61A64592A0041FCC2 /* JSONJoy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JSONJoy.xcodeproj; path = "JSONJoy-Swift-master/JSONJoy.xcodeproj"; sourceTree = "<group>"; };
 		93B17A1E1A561F720092AE0B /* bookCheckOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bookCheckOutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +171,8 @@
 		93070A881A48508E00A7927B = {
 			isa = PBXGroup;
 			children = (
+				93AA08F61A64592A0041FCC2 /* JSONJoy.xcodeproj */,
+				93AA08E71A6459230041FCC2 /* SwiftHTTP.xcodeproj */,
 				93070A931A48508E00A7927B /* SWAGLibrary */,
 				93070AAB1A48508F00A7927B /* SWAGLibraryTests */,
 				93070A921A48508E00A7927B /* Products */,
@@ -214,6 +274,28 @@
 			name = AFNetwork;
 			sourceTree = "<group>";
 		};
+		93AA08E81A6459230041FCC2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93AA08EF1A6459230041FCC2 /* SwiftHTTP.framework */,
+				93AA08F11A6459230041FCC2 /* SwiftHTTPTests.xctest */,
+				93AA08F31A6459230041FCC2 /* SwiftHTTPOSX.framework */,
+				93AA08F51A6459230041FCC2 /* SwiftHTTPOSXTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93AA08F71A64592A0041FCC2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93AA08FE1A64592A0041FCC2 /* JSONJoy.framework */,
+				93AA09001A64592A0041FCC2 /* JSONJoyTests.xctest */,
+				93AA09021A64592A0041FCC2 /* JSONJoyOSX.framework */,
+				93AA09041A64592A0041FCC2 /* JSONJoyOSXTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -281,6 +363,16 @@
 			mainGroup = 93070A881A48508E00A7927B;
 			productRefGroup = 93070A921A48508E00A7927B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 93AA08F71A64592A0041FCC2 /* Products */;
+					ProjectRef = 93AA08F61A64592A0041FCC2 /* JSONJoy.xcodeproj */;
+				},
+				{
+					ProductGroup = 93AA08E81A6459230041FCC2 /* Products */;
+					ProjectRef = 93AA08E71A6459230041FCC2 /* SwiftHTTP.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				93070A901A48508E00A7927B /* SWAGLibrary */,
@@ -288,6 +380,65 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		93AA08EF1A6459230041FCC2 /* SwiftHTTP.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftHTTP.framework;
+			remoteRef = 93AA08EE1A6459230041FCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93AA08F11A6459230041FCC2 /* SwiftHTTPTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftHTTPTests.xctest;
+			remoteRef = 93AA08F01A6459230041FCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93AA08F31A6459230041FCC2 /* SwiftHTTPOSX.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftHTTPOSX.framework;
+			remoteRef = 93AA08F21A6459230041FCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93AA08F51A6459230041FCC2 /* SwiftHTTPOSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftHTTPOSXTests.xctest;
+			remoteRef = 93AA08F41A6459230041FCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93AA08FE1A64592A0041FCC2 /* JSONJoy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = JSONJoy.framework;
+			remoteRef = 93AA08FD1A64592A0041FCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93AA09001A64592A0041FCC2 /* JSONJoyTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = JSONJoyTests.xctest;
+			remoteRef = 93AA08FF1A64592A0041FCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93AA09021A64592A0041FCC2 /* JSONJoyOSX.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = JSONJoyOSX.framework;
+			remoteRef = 93AA09011A64592A0041FCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93AA09041A64592A0041FCC2 /* JSONJoyOSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = JSONJoyOSXTests.xctest;
+			remoteRef = 93AA09031A64592A0041FCC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		93070A8F1A48508E00A7927B /* Resources */ = {
