@@ -105,7 +105,7 @@
 +(void)retrieveBookAtIndex:(NSUInteger)bookIndex
 {
     NSUInteger bookNumber = bookIndex + 1;
-    NSString *bookCharacter = [NSString stringWithFormat:@"%u", bookNumber];
+    NSString *bookCharacter = [NSString stringWithFormat:@"%lu", (unsigned long)bookNumber];
     NSString *bookURL = [NSString stringWithFormat:@"%@%@",serverURL, bookCharacter];
     
     //    Create the request manager that will handle the get operation
@@ -195,7 +195,7 @@
 
     NSUInteger bookNumber= bookIndex+ 1;
     
-    NSString *bookURL = [NSString stringWithFormat:@"%@%u",serverURL, bookNumber];
+    NSString *bookURL = [NSString stringWithFormat:@"%@%lu",serverURL, (unsigned long)bookNumber];
     
 //    Dictionary that will hold updated time of checkout and person whom checked out the book
     
