@@ -7,35 +7,64 @@
 //
 
 #import "DetailViewController.h"
+#import "BookValues.h"
+#import "ServerBookManager.h"
 
 @interface DetailViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextView *titleTextField;
+
+@property (weak, nonatomic) IBOutlet UILabel *authorTextField;
+
+@property (weak, nonatomic) IBOutlet UILabel *publisherTextField;
+
+@property (weak, nonatomic) IBOutlet UILabel *tagsTextField;
+
+@property (weak, nonatomic) IBOutlet UITextView *checkedOutTextField;
 
 @end
 
 @implementation DetailViewController
 
-#pragma mark - Managing the detail item
+#pragma mark - Book information method
 
-- (void)setDetailItem:(id)newDetailItem {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
-            
-        // Update the view.
-        [self configureView];
-    }
+
+/**
+ @description Displays the book information for the selected book
+ */
+- (void)bookInformation {
+    _authorTextField.text = [[BookValues sharedManager] author];
+    _titleTextField.text = [[BookValues sharedManager] bookTitle];
+    _publisherTextField.text = [[BookValues sharedManager] publisher];
+    _tagsTextField.text = [[BookValues sharedManager] bookCategories];
+    
 }
 
-- (void)configureView {
-    // Update the user interface for the detail item.
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
-    }
-}
+#pragma mark - View Controller default methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
+
+    
+    /// populate the labels and textview with book information
+    void (^populateBookInformation)(void) =
+    ^{
+        _authorTextField.text = [ServerBookManager author];
+        _titleTextField.text = [ServerBookManager title];
+        _publisherTextField.text = [ServerBookManager publisher];
+        _tagsTextField.text = [ServerBookManager categories];
+        _checkedOutTextField.text = [NSString stringWithFormat:@"%@%@.", [ServerBookManager lastCheckedOut], [ServerBookManager lastCheckedOutBy]];
+ 
+    };
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        populateBookInformation();
+    });
+    
+    NSLog(@"Last checked out by %@",[ServerBookManager lastCheckedOutBy]);
+    
 }
 
 - (void)didReceiveMemoryWarning {
