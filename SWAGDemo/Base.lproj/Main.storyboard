@@ -64,7 +64,7 @@
                             <outlet property="delegate" destination="pGg-6v-bdr" id="Y6K-Cp-Qkv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="tQt-TN-PWz">
+                    <navigationItem key="navigationItem" title="Books" id="tQt-TN-PWz">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="n71-01-c5r"/>
                     </navigationItem>
                     <connections>
@@ -187,11 +187,14 @@
                             <constraint firstItem="GBq-yt-mIj" firstAttribute="top" secondItem="N3d-YZ-k2b" secondAttribute="bottom" priority="750" constant="45" id="w2A-gz-yTA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
+                    <navigationItem key="navigationItem" title="Book Details" id="cra-N8-TIN"/>
                     <connections>
                         <outlet property="authorTextField" destination="Bu9-lQ-DpL" id="Y0U-Zd-NrS"/>
                         <outlet property="checkedOutTextField" destination="N3d-YZ-k2b" id="yxS-yo-mfA"/>
+                        <outlet property="checkoutButton" destination="GBq-yt-mIj" id="Cur-Qf-mfe"/>
+                        <outlet property="publisherLabel" destination="gdY-C3-KqC" id="toh-Gg-OIg"/>
                         <outlet property="publisherTextField" destination="izJ-Nn-zEi" id="oyN-EJ-nxa"/>
+                        <outlet property="tagsLabel" destination="3yX-sX-HA8" id="jGO-68-WpJ"/>
                         <outlet property="tagsTextField" destination="SbE-ZG-SPA" id="5ku-j7-zHk"/>
                         <outlet property="titleTextField" destination="W9Y-Ej-m8G" id="4R2-GU-ldB"/>
                     </connections>
@@ -229,7 +232,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="submit:" destination="a7Z-NS-m3C" eventType="touchUpInside" id="hT9-EU-lt8"/>
+                                    <action selector="submitBookInformation:" destination="a7Z-NS-m3C" eventType="touchUpInside" id="Y6a-y4-YOs"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Author" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d3X-yw-d6k">
@@ -279,7 +282,7 @@
                     <navigationItem key="navigationItem" title="Add Book" id="DX3-iT-Qdi">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Wbs-rX-QfK">
                             <connections>
-                                <action selector="closeVC:" destination="a7Z-NS-m3C" id="fB5-Pa-Obj"/>
+                                <action selector="closeVC:" destination="a7Z-NS-m3C" id="tkG-76-F3k"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
