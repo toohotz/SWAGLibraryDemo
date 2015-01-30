@@ -32,7 +32,7 @@
 
 @property (nonatomic) NSNumber *serverIdNumber;
 
-@property (nonatomic) NSUInteger currentBookIndex;
+@property (nonatomic) NSNumber *currentBookIndex;
 
 @property (nonatomic) BOOL wasEdited;
 
