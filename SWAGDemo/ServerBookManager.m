@@ -102,11 +102,10 @@
     
 }
 
-+(void)retrieveBookAtIndex:(NSUInteger)bookIndex
++(void)retrieveBookAtIndex:(NSNumber*)bookIndex
 {
-    NSUInteger bookNumber = bookIndex + 1;
-    NSString *bookCharacter = [NSString stringWithFormat:@"%lu", (unsigned long)bookNumber];
-    NSString *bookURL = [NSString stringWithFormat:@"%@%@",serverURL, bookCharacter];
+
+    NSString *bookURL = [NSString stringWithFormat:@"%@%@",serverURL, bookIndex.stringValue];
     
     //    Create the request manager that will handle the get operation
     
@@ -189,13 +188,13 @@
     }
 }
 
-+(void)editBookAtIndex:(NSUInteger)bookIndex editedBy:(NSString*)editor
++(void)editBookAtIndex:(NSNumber*)bookIndex editedBy:(NSString*)editor
 {
     [ServerBookManager setNewLastCheckedOutBy:[ServerBookManager serverTimeFormattingSetting]];
 
-    NSUInteger bookNumber= bookIndex+ 1;
+
     
-    NSString *bookURL = [NSString stringWithFormat:@"%@%lu",serverURL, (unsigned long)bookNumber];
+    NSString *bookURL = [NSString stringWithFormat:@"%@%@",serverURL, bookIndex.stringValue];
     
 //    Dictionary that will hold updated time of checkout and person whom checked out the book
     
@@ -331,7 +330,7 @@
 
 
 
-+(void)setCurrentBookIndex:(NSUInteger)bookIndex
++(void)setCurrentBookIndex:(NSNumber*)bookIndex
 {
     if (bookIndex) {
         [[BookValues sharedManager] setCurrentBookIndex:bookIndex];
@@ -399,7 +398,7 @@
     return [[BookValues sharedManager] serverIdNumber];
 }
 
-+(NSUInteger)currentBookIndex
++(NSNumber*)currentBookIndex
 {
     return [[BookValues sharedManager] currentBookIndex];
 }

@@ -26,14 +26,14 @@
  @description Retrieves a book at the given index number from the server.
  @param bookIndex Index of the book on server
  */
-+(void)retrieveBookAtIndex:(NSUInteger)bookIndex;
++(void)retrieveBookAtIndex:(NSNumber*)bookIndex;
 +(void)createNewBookWithInformation:(NSDictionary*)bookInformation;
 /**
  Checkout a particular book at a given index
  @param bookIndex Index of the book on server
  @param editor Person who committed the edit to book
  */
-+(void)editBookAtIndex:(NSUInteger)bookIndex editedBy:(NSString*)editor;
++(void)editBookAtIndex:(NSNumber*)bookIndex editedBy:(NSString*)editor;
 /**
  @description Deletes a book at a specified index on server
  @param bookIndex Index of book on server
@@ -80,7 +80,7 @@
  @description Sets the current book index for selected book
  @param bookIndex Index of book selected
  */
-+(void)setCurrentBookIndex:(NSUInteger)bookIndex;
++(void)setCurrentBookIndex:(NSNumber*)bookIndex;
 
 #pragma mark - Singleton getter property methods
 
@@ -120,7 +120,7 @@
  @description Returns the current index of the selected book from tableview
  @returns The current book index of selected book
  */
-+(NSUInteger)currentBookIndex;
++(NSNumber*)currentBookIndex;
 /**
  Returns the next id for a newly created book in the Prolific server
  @returns The next avaialble book number
