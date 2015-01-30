@@ -26,12 +26,11 @@
 }
 
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:YES];
-    
-//    Required so that tableview updates itself upon view coming back to screen
+    [super viewWillAppear:YES];
     [ServerBookManager retrieveTableViewBookInformation];
+    [self reloadTableViewDataSource];
 }
 
 - (void)viewDidLoad {
@@ -43,9 +42,6 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(toCreateBookSegue:)];
     self.navigationItem.rightBarButtonItem = addButton;
     
-    [ServerBookManager retrieveTableViewBookInformation];
-
-    [self reloadTableViewDataSource];
 
 //    dispatch after is required due to the time it takes to access the singleton values managed by ServerBookManager
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -78,9 +74,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+
+
+        [ServerBookManager retrieveBookAtIndex:[[ServerBookManager bookIDs] objectAtIndex:indexPath.row]];
         
-        [ServerBookManager retrieveBookAtIndex:(NSUInteger)indexPath.row];
-        [ServerBookManager setCurrentBookIndex:indexPath.row];
+        [ServerBookManager setCurrentBookIndex:[[ServerBookManager bookIDs] objectAtIndex:indexPath.row]];
 
     }
 }
@@ -103,8 +101,9 @@
  */
 -(void)reloadTableViewDataSource
 {
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [ServerBookManager retrieveTableViewBookInformation];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
         _listAuthors = [ServerBookManager bookAuthors];
         _listTitles = [ServerBookManager bookTitles];
@@ -129,6 +128,7 @@
 
     cell.textLabel.text = [_listTitles objectAtIndex:indexPath.row];
     cell.detailTextLabel.text = [_listAuthors objectAtIndex:indexPath.row];
+  
     return cell;
 }
 
