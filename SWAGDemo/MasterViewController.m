@@ -29,7 +29,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [ServerBookManager retrieveTableViewBookInformation];
+//    [ServerBookManager retrieveTableViewBookInformation];
     [self reloadTableViewDataSource];
 }
 
@@ -75,8 +75,8 @@
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 
-
-        [ServerBookManager retrieveBookAtIndex:[[ServerBookManager bookIDs] objectAtIndex:indexPath.row]];
+        
+//        [ServerBookManager retrieveBookAtIndex:[[ServerBookManager bookIDs] objectAtIndex:indexPath.row]];
         
         [ServerBookManager setCurrentBookIndex:[[ServerBookManager bookIDs] objectAtIndex:indexPath.row]];
 
@@ -101,15 +101,31 @@
  */
 -(void)reloadTableViewDataSource
 {
-    [ServerBookManager retrieveTableViewBookInformation];
+    
+//    using async queue
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+        [ServerBookManager retrieveTableViewBookInformationWithCompletion:^(NSArray *array, NSError *error) {
+            
+            if (array) {
+                _listTitles = [array valueForKey:@"title"];
+                _listAuthors = [array valueForKey:@"author"];
+            }
+            
+            else if (error)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:[NSString stringWithFormat:@"It appears something went wrong. Error - %@", error.localizedDescription] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                [alert show];
+                NSLog(@"An error occurred retrieving the tableview book information. %@ - %@", error.localizedFailureReason, error.localizedDescription);
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+            
+        }];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-        _listAuthors = [ServerBookManager bookAuthors];
-        _listTitles = [ServerBookManager bookTitles];
     });
-    
-    
+
     
     [self.refreshControl endRefreshing];
 }
