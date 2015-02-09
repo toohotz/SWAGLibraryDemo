@@ -23,11 +23,13 @@
 #import "CreatedBookValues.h"
 @implementation ServerBookManager
 
+#pragma mark - Singleton server getters
+
 /**
  @description Retrieves book information from server for SWAGLibrary
  @important Values are stored into ServerBookManager's singleton properties
  */
-+(void)retrieveTableViewBookInformation
++(void)retrieveTableViewBookInformationWithCompletion:(void(^)(NSArray *array, NSError *error))completion
 {
     
 //    temporary arrays that will hold new server values
@@ -62,20 +64,19 @@
              into their respective arrays that will propogate the datasource array of the tableview
              
              */
-            
-            NSLog(@"%@", sortedBookArray);
-            for (NSDictionary *book in sortedBookArray) {
-                
-                NSString *author = [book valueForKey:@"author"];
-                [newAuthors addObject:author];
-                
-                NSString *bookTitles = [book valueForKey:@"title"];
-                [newBookTitles addObject:bookTitles];
-                
-                NSNumber *bookID = [book valueForKey:@"id"];
-                [newBookIndicies addObject:bookID];
 
-            }
+            
+            completion(sortedBookArray, nil);
+//            block style approach
+            
+            [sortedBookArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                NSDictionary *books = obj;
+                
+                [newAuthors addObject:[books valueForKey:@"author"]];
+                [newBookTitles addObject:[books valueForKey:@"title"]];
+                [newBookIndicies addObject:[books valueForKey:@"id"]];
+            }];
+
 
                 bookValuesManager.authors = newAuthors;
                 bookValuesManager.titles = newBookTitles;
@@ -97,12 +98,13 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        completion(nil, error);
     }];
     
     
 }
 
-+(void)retrieveBookAtIndex:(NSNumber*)bookIndex
++(void)retrieveBookAtIndex:(NSNumber*)bookIndex completionHandler:(void(^)(NSDictionary *dictionary, NSError *error))completion
 {
 
     NSString *bookURL = [NSString stringWithFormat:@"%@%@",serverURL, bookIndex.stringValue];
@@ -141,6 +143,16 @@
                 lastCheckedOut = [NSString stringWithFormat:@"This book has been checked out on %@" " by ", lastCheckedOut];
             }
             
+            
+            
+            NSDictionary *bookValues = @{@"author": author,
+                                         @"title": title,
+                                         @"categories": categories,
+                                         @"publisher": publisher,
+                                         @"lastCheckedOut": lastCheckedOut,
+                                         @"lastCheckedOutBy": lastCheckedOutBy,};
+            
+            completion(bookValues, nil);
 //            assign singleton values for book information here
             
             BookValues *newBookVals = [[BookValues alloc] init];
@@ -156,12 +168,14 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        if (error) {
+            completion(nil, error);
+        }
     }];
     
 }
 
-+(void)createNewBookWithInformation:(NSDictionary*)bookInformation
++(void)createNewBookWithInformation:(NSDictionary*) bookInformation completionHandler:(void(^)(BOOL wasSuccessful, NSError *error))completion
 {
 
     if (bookInformation != nil) {
@@ -176,6 +190,7 @@
                 //      let user know book was successfully created
                 
                 [[NewBookValues sharedManager] setWasCreated:YES];
+                completion(TRUE,nil);
             }
             
             
@@ -183,17 +198,16 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             //        let user know book was not successfully created
             [[NewBookValues sharedManager] setWasCreated:NO];
-            
+           
+            completion(FALSE, error);
         }];
     }
 }
 
-+(void)editBookAtIndex:(NSNumber*)bookIndex editedBy:(NSString*)editor
++(void)editBookAtIndex:(NSNumber*)bookIndex editedBy:(NSString*)editor completionHandler:(void(^)(BOOL wasEditted, NSError *error))completion
 {
     [ServerBookManager setNewLastCheckedOutBy:[ServerBookManager serverTimeFormattingSetting]];
 
-
-    
     NSString *bookURL = [NSString stringWithFormat:@"%@%@",serverURL, bookIndex.stringValue];
     
 //    Dictionary that will hold updated time of checkout and person whom checked out the book
@@ -210,6 +224,7 @@
         if (responseObject != nil) {
 //            notify user that the book has been successfully edited
             [[BookValues sharedManager] setWasEdited:YES];
+            completion(TRUE, nil);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -218,6 +233,7 @@
        
         if (error) {
             [[BookValues sharedManager] setWasEdited:NO];
+            completion(FALSE, error);
         }
     }];
     

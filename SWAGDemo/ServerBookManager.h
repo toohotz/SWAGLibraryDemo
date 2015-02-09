@@ -18,22 +18,37 @@
 @interface ServerBookManager : NSObject
 
 
+#pragma mark - Singleton server getters
+
 /**
- @description Retrieves author and book title information for tableview
+ @description Retrieves author and book title information for tableview 
+ @param completion Block that holds array of values retrieved from the server
+ as well as an any error that might have occurred during the retrieval of
+ book information from server
  */
-+(void)retrieveTableViewBookInformation;
++(void)retrieveTableViewBookInformationWithCompletion:(void(^)(NSArray *array, NSError *error))completion;
 /**
  @description Retrieves a book at the given index number from the server.
  @param bookIndex Index of the book on server
+ @param completion Block that will return the user the values
+ of a particular book that they have selected
  */
-+(void)retrieveBookAtIndex:(NSNumber*)bookIndex;
-+(void)createNewBookWithInformation:(NSDictionary*)bookInformation;
++(void)retrieveBookAtIndex:(NSNumber*)bookIndex completionHandler:(void(^)(NSDictionary *dictionary, NSError *error))completion;
+/**
+ @description Creates a new book with the passed in information and notifies 
+ the user if the book has been successfully created or not
+ @param bookInformation Dictionary holding the book information parameters
+ @param completion Block that is used to notify user of sucessful or failure of book creation
+ */
++(void)createNewBookWithInformation:(NSDictionary*)bookInformation completionHandler:(void(^)(BOOL wasSuccessful, NSError *error))completion;
 /**
  Checkout a particular book at a given index
  @param bookIndex Index of the book on server
  @param editor Person who committed the edit to book
+ @param completion Block that is used to notify user 
+ whether the book has been successfully editted or not
  */
-+(void)editBookAtIndex:(NSNumber*)bookIndex editedBy:(NSString*)editor;
++(void)editBookAtIndex:(NSNumber*)bookIndex editedBy:(NSString*)editor completionHandler:(void(^)(BOOL wasEditted, NSError *error))completion;
 /**
  @description Deletes a book at a specified index on server
  @param bookIndex Index of book on server
