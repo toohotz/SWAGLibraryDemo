@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9339252D1A88405F00E3CAEF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9339252C1A88405F00E3CAEF /* Social.framework */; };
 		93AA09181A6478040041FCC2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93AA09171A6478040041FCC2 /* main.m */; };
 		93AA091B1A6478040041FCC2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93AA091A1A6478040041FCC2 /* AppDelegate.m */; };
 		93AA091E1A6478040041FCC2 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93AA091D1A6478040041FCC2 /* MasterViewController.m */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9339252C1A88405F00E3CAEF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		93AA09121A6478040041FCC2 /* SWAGDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SWAGDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AA09161A6478040041FCC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93AA09171A6478040041FCC2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9339252D1A88405F00E3CAEF /* Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +112,7 @@
 		93AA09091A6478040041FCC2 = {
 			isa = PBXGroup;
 			children = (
+				9339252C1A88405F00E3CAEF /* Social.framework */,
 				93AA09141A6478040041FCC2 /* SWAGDemo */,
 				93AA09311A6478040041FCC2 /* SWAGDemoTests */,
 				93AA09131A6478040041FCC2 /* Products */,
