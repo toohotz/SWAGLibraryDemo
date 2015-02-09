@@ -52,8 +52,10 @@
 /**
  @description Deletes a book at a specified index on server
  @param bookIndex Index of book on server
+ @param completion Completion handler used to notify user that the book has been 
+ successfully (or not) removed from the server
  */
-+(void)deleteBookAtIndex:(NSUInteger)bookIndex;
++(void)deleteBookAtIndex:(NSUInteger)bookIndex completionHandler:(void(^)(BOOL wasDeleted, NSError *error))completion;
 /**
  @description Deletes all books from the Prolific SWAG server
  */

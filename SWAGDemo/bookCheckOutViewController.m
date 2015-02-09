@@ -20,7 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    _nameTextField.delegate = self;
     
 }
 

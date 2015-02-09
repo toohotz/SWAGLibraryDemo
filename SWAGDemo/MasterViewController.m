@@ -29,8 +29,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-//    [ServerBookManager retrieveTableViewBookInformation];
-    [self reloadTableViewDataSource];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self reloadTableViewDataSource];
+    });
 }
 
 - (void)viewDidLoad {
@@ -74,9 +76,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-
         
-//        [ServerBookManager retrieveBookAtIndex:[[ServerBookManager bookIDs] objectAtIndex:indexPath.row]];
+//        Grab index path and select book from server at given index from tableview
         
         [ServerBookManager setCurrentBookIndex:[[ServerBookManager bookIDs] objectAtIndex:indexPath.row]];
 
@@ -153,17 +154,31 @@
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 
-        [ServerBookManager deleteBookAtIndex:indexPath.row];
- 
-        [_listAuthors removeObjectAtIndex:indexPath.row];
-        [_listTitles removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        [ServerBookManager deleteBookAtIndex:indexPath.row];
+        [ServerBookManager deleteBookAtIndex:indexPath.row completionHandler:^(BOOL wasDeleted, NSError *error) {
+            
+            
+            
+            if (wasDeleted)
+            {
+//                no need to alert user book has been deleted,
+//                just remove from the associated arrays
+                
+                [_listAuthors removeObjectAtIndex:indexPath.row];
+                [_listTitles removeObjectAtIndex:indexPath.row];
+  
+#warning TableView Cell isn't fading out but data is removed from array
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+             
+            }
+        }];
+  
         
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        
     }
 }
 

@@ -47,6 +47,7 @@
     __block NSDictionary *paramters;
     
     
+    
 //    make sure all fields are valid so "empty" books aren't created on server
     
     if ((_authorTF.text.length >= 1 && _authorTF.text.length <= 3) || (_bookTitleTF.text.length >= 1 && _bookTitleTF.text.length <= 3) || (_publisherTF.text.length >= 1 && _publisherTF.text.length <= 3) || (_categoriesTF.text.length >= 1 && _categoriesTF.text.length <= 3) || _authorTF.text.length == 0  || _bookTitleTF.text.length == 0 || _publisherTF.text.length == 0 || _categoriesTF.text.length == 0) {
@@ -59,7 +60,7 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
         
         
-        
+//       Set book paramaters that will be sent off to server via book manager
         void (^bookParameterSetter)(void) =
         ^{
             paramters = @{@"author": _authorTF.text,

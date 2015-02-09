@@ -196,9 +196,9 @@
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //        let user know book was not successfully created
-            [[NewBookValues sharedManager] setWasCreated:NO];
-           
+            //        let user know book was not successfully created (in completion block)
+          
+  
             completion(FALSE, error);
         }];
     }
@@ -239,14 +239,13 @@
     
 }
 
-+(void)deleteBookAtIndex:(NSUInteger)bookIndex
++(void)deleteBookAtIndex:(NSUInteger)bookIndex completionHandler:(void(^)(BOOL wasDeleted, NSError *error))completion
 {
 //    initialize the book manager to retrieve values from
     
     BookValues *bookValuesManager = [[BookValues alloc] init];
     
 //    find the index of the selected book
-    
     
     NSNumber *deleteIndex = [bookValuesManager.bookNumbers objectAtIndex:bookIndex];
     
@@ -260,13 +259,13 @@
     [manager DELETE:bookURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
        
         if (responseObject != nil) {
-//            notify user that the book was successfully deleted
-            bookValuesManager.isDeleted = TRUE;
+//            notify user that the book was successfully deleted (via completion handler)
+            completion(TRUE, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         if (error) {
-            bookValuesManager.isDeleted = FALSE;
+            completion(FALSE, error);
         }
     }];
 }
@@ -510,7 +509,7 @@
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-        dateFormatter.timeZone = [NSTimeZone systemTimeZone];
+        dateFormatter.timeZone = [NSTimeZone defaultTimeZone];
         dateFormatter.locale = [NSLocale currentLocale];
         dateFormatter.formatterBehavior = NSDateFormatterBehaviorDefault;
 

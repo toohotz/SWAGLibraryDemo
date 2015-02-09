@@ -83,6 +83,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
+    void (^makeTextInvisible)(void) =
+    ^{
         _authorTextField.alpha = 0;
         _titleTextField.alpha = 0;
         _publisherTextField.alpha = 0;
@@ -91,20 +93,11 @@
         _tagsLabel.alpha = 0;
         _checkedOutTextField.alpha = 0;
         _checkoutButton.alpha = 0;
-
-    
-    
-    /// populate the labels and textview with book information
-    void (^populateBookInformation)(void) =
-    ^{
-        _authorTextField.text = [ServerBookManager author];
-        _titleTextField.text = [ServerBookManager title];
-        _publisherTextField.text = [ServerBookManager publisher];
-        _tagsTextField.text = [ServerBookManager categories];
-        _checkedOutTextField.text = [NSString stringWithFormat:@"%@%@.", [ServerBookManager lastCheckedOut], [ServerBookManager lastCheckedOutBy]];
- 
     };
     
+    makeTextInvisible();
+ 
+    // Slow fade in used to give a more visually appealing ease into book information
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
