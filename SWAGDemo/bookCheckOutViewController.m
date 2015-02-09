@@ -36,13 +36,30 @@
 
     
     [_nameTextField resignFirstResponder];
-    if (_nameTextField.text.length > 1) {
-        [ServerBookManager editBookAtIndex:[ServerBookManager currentBookIndex] editedBy:_nameTextField.text];
-    }
+    if (_nameTextField.text.length >= 2) {
 
-    
-    [self dismissViewControllerAnimated:TRUE completion:nil];
-    
+        [ServerBookManager editBookAtIndex:[ServerBookManager currentBookIndex] editedBy:_nameTextField.text completionHandler:^(BOOL wasEditted, NSError *error) {
+            if (wasEditted) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sweet" message:[NSString stringWithFormat:@"%@ has just checked out this book.", _nameTextField.text] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                
+                
+                [ServerBookManager retrieveBookAtIndex:[ServerBookManager currentBookIndex] completionHandler:^(NSDictionary *dictionary, NSError *error) {
+                    
+                    if (!error) {
+                        [alert show];
+                        [self dismissViewControllerAnimated:TRUE completion:nil];
+                    }
+                }];
+            }
+            
+            if (error)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:[NSString stringWithFormat:@"Something unexpected happened when trying to check this book out. Error: %@", error.localizedDescription] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                [alert show];
+                [self dismissViewControllerAnimated:TRUE completion:nil];
+            }
+        }];
+    }
     
     
     return TRUE;
