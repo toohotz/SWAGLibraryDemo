@@ -33,7 +33,6 @@
     [super viewDidLoad];
 
     
-    NSLog(@"The book ids are %@", [ServerBookManager bookIDs]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,7 +51,7 @@
     
     if ((_authorTF.text.length >= 1 && _authorTF.text.length <= 3) || (_bookTitleTF.text.length >= 1 && _bookTitleTF.text.length <= 3) || (_publisherTF.text.length >= 1 && _publisherTF.text.length <= 3) || (_categoriesTF.text.length >= 1 && _categoriesTF.text.length <= 3) || _authorTF.text.length == 0  || _bookTitleTF.text.length == 0 || _publisherTF.text.length == 0 || _categoriesTF.text.length == 0) {
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Oops!" message:@"It seems that you have left a field blank" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Oops!" message:@"It seems like you didn't enter valid book information" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [alert show];
     }
     
@@ -61,7 +60,7 @@
         
         
         
-        void (^singletonSetters)(void) =
+        void (^bookParameterSetter)(void) =
         ^{
             paramters = @{@"author": _authorTF.text,
                           @"title": _bookTitleTF.text,
@@ -73,13 +72,22 @@
                           };
         };
         
-        singletonSetters();
+        bookParameterSetter();
         
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [ServerBookManager createNewBookWithInformation:paramters];
+        [ServerBookManager createNewBookWithInformation:paramters completionHandler:^(BOOL wasSuccessful, NSError *error) {
+           
+            if (wasSuccessful) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sweet" message:@"Your book has been added to the library" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                [alert show];
+            }
             
-        });
+            else if (error)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sweet" message:[NSString stringWithFormat:@"Something went wrong creating your book. Error - %@", error.localizedDescription] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                [alert show];
+            }
+        }];
+        
         
         [self.navigationController popToRootViewControllerAnimated:YES];
         
@@ -93,7 +101,7 @@
    
     if ((_authorTF.text.length >= 1 && _authorTF.text.length <= 3) || (_bookTitleTF.text.length >= 1 && _bookTitleTF.text.length <= 3) || (_publisherTF.text.length >= 1 && _publisherTF.text.length <= 3) || (_categoriesTF.text.length >= 1 && _categoriesTF.text.length <= 3)) {
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Oops!" message:@"It seems that you have left a field blank" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Oops!" message:@"It seems like you didn't enter valid book information" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [alert show];
     }
     
@@ -119,9 +127,24 @@
 #pragma mark - UITextField delegate methods
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
+    if (textField == _bookTitleTF) {
+        [_authorTF becomeFirstResponder];
+    }
    
+    else if (textField == _authorTF)
+    {
+        [_publisherTF becomeFirstResponder];
+    }
     
+    else if (textField == _publisherTF)
+    {
+        [_categoriesTF becomeFirstResponder];
+    }
+    
+    else if (textField == _categoriesTF)
+    {
+        [self submitBookInformation:nil];
+    }
     
     return TRUE;
 }
