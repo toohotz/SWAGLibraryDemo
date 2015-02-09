@@ -187,7 +187,13 @@
                             <constraint firstItem="GBq-yt-mIj" firstAttribute="top" secondItem="N3d-YZ-k2b" secondAttribute="bottom" priority="750" constant="45" id="w2A-gz-yTA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Book Details" id="cra-N8-TIN"/>
+                    <navigationItem key="navigationItem" title="Book Details" id="cra-N8-TIN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="4Pe-v4-Vm0">
+                            <connections>
+                                <action selector="shareToSocialMedia:" destination="Ah7-4n-0Wa" id="pRg-Fr-5Rr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="authorTextField" destination="Bu9-lQ-DpL" id="Y0U-Zd-NrS"/>
                         <outlet property="checkedOutTextField" destination="N3d-YZ-k2b" id="yxS-yo-mfA"/>
