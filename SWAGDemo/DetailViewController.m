@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "BookValues.h"
 #import "ServerBookManager.h"
+#import <Social/Social.h>
 
 @interface DetailViewController ()
 
@@ -50,6 +51,34 @@
 
 #pragma mark - View Controller default methods
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+//    load up book view information
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+        [ServerBookManager retrieveBookAtIndex:[ServerBookManager currentBookIndex] completionHandler:^(NSDictionary *dictionary, NSError *error) {
+            
+            if (!error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _authorTextField.text = [dictionary objectForKey:@"author"];
+                    _titleTextField.text = [dictionary objectForKey:@"title"];
+                    _publisherTextField.text = [dictionary objectForKey:@"publisher"];
+                    _tagsTextField.text = [dictionary objectForKey:@"categories"];
+                    _checkedOutTextField.text = [NSString stringWithFormat:@"%@%@.", [dictionary objectForKey:@"lastCheckedOut"], [dictionary objectForKey:@"lastCheckedOutBy"]];
+                });
+                
+            }
+            
+            if (error) {
+                NSLog(@"An error occurred. %@", error.localizedDescription);
+            }
+        }];
+    });
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -62,7 +91,7 @@
         _tagsLabel.alpha = 0;
         _checkedOutTextField.alpha = 0;
         _checkoutButton.alpha = 0;
-    
+
     
     
     /// populate the labels and textview with book information
@@ -77,8 +106,8 @@
     };
     
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        populateBookInformation();
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
         [self fadeInText];
     });
     
@@ -115,6 +144,34 @@
     }];
     
 }
+
+
+#pragma mark - Share to Twitter and Facebook
+
+- (IBAction)shareToSocialMedia:(UIBarButtonItem *)sender {
+    
+    
+    NSString *stringToSend = [NSString stringWithFormat:@"Check out my latest book that I recently checked out named %@.", _titleTextField.text];
+    
+    NSArray *activityItems = [[NSArray alloc] initWithObjects:stringToSend, nil];
+    
+    UIActivityViewController *activityController =
+    [[UIActivityViewController alloc]
+     initWithActivityItems:activityItems applicationActivities:nil];
+    
+    
+    [self presentViewController:activityController animated:YES completion:nil];
+    
+    /*
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        SLComposeViewController *twitterSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        [twitterSheet setInitialText:[NSString stringWithFormat:@"Check out my latest book that I recently checked out named %@", _titleTextField.text]];
+    [self presentViewController:twitterSheet animated:YES completion:nil];
+    }
+    */
+}
+
 
 
 @end
